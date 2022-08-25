@@ -1,0 +1,65 @@
+.sign-form {
+  padding: 2rem 0;
+
+  form {
+    margin: 2rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+    .input {
+      position: relative;
+      width: 100%;
+      input {
+        width: 100%;
+        padding: 1.3rem;
+      }
+    }
+    .input-password {
+      .view-icon {
+        position: absolute;
+        top: 50%;
+        right: 0%;
+        transform: translate(-50%, -50%);
+
+        svg {
+          width: 2.5rem;
+          height: 2.5rem;
+        }
+      }
+    }
+    .forget-password {
+      text-align: right;
+      a {
+        color: rgb(31, 168, 72);
+        font-weight: 600;
+      }
+    }
+  }
+
+  .sign-btn {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 8rem 0 8rem;
+    button {
+      padding: 0.5rem;
+      background-color: rgb(6, 74, 175);
+      border-radius: 999px;
+
+      svg {
+        font-size: 2em;
+        color: white;
+      }
+    }
+  }
+  .sign-option {
+    text-align: center;
+    a {
+      color: rgb(38, 38, 139);
+    }
+  }
+}
+
+a {
+  font-size: clamp(1.7rem, 2.5vw, 3rem);
+}
