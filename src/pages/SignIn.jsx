@@ -6,6 +6,8 @@ import { FaArrowRight, FaEye, FaEyeSlash } from "react-icons/fa";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
 import { toast } from "react-toastify";
+import SignBtn from "../shared/SignBtn";
+import GetAuthGoogle from "../components/GetAuthGoogle";
 
 function SignIn() {
   const [formData, setFormData] = useState({
@@ -73,15 +75,19 @@ function SignIn() {
         </div>
 
         <div className="forget-password">
-          <Link to="/forget-password">Forget password</Link>
+          <Link to="/forgot-password">Forgot password</Link>
         </div>
-        <div className="sign-btn">
+
+
+        <SignBtn className="sign-btn">
           <h4>Sign in</h4>
           <button type="submit" onClick={handleSubmit}>
             <FaArrowRight />
           </button>
-        </div>
+        </SignBtn>
       </form>
+
+      <GetAuthGoogle/>
 
       <div className="sign-option">
         <Link to="/sign-up">Sign Up Instead</Link>

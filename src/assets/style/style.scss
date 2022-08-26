@@ -62,3 +62,21 @@ p {
   align-items: center;
 
 }
+
+
+.sign-btn {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 8rem 0 8rem;
+  button {
+    padding: 0.5rem;
+    background-color: rgb(6, 74, 175);
+    border-radius: 999px;
+
+    svg {
+      font-size: 2em;
+      color: white;
+    }
+  }
+}

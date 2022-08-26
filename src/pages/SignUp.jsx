@@ -2,18 +2,16 @@ import { useState } from "react";
 import "../assets/style/signIn.scss";
 import { Link, useNavigate } from "react-router-dom";
 import { FaArrowRight, FaEye, FaEyeSlash } from "react-icons/fa";
-
 import { toast } from "react-toastify";
-
 import {
   getAuth,
   createUserWithEmailAndPassword,
   updateProfile,
 } from "firebase/auth";
-
 import { setDoc, doc, serverTimestamp } from "firebase/firestore";
-
 import { db } from "../firebase.config";
+import SignBtn from "../shared/SignBtn";
+import GetAuthGoogle from "../components/GetAuthGoogle";
 
 function SignUp() {
   const [formData, setFormData] = useState({
@@ -104,12 +102,13 @@ function SignUp() {
           <Link to="/forget-password">Forget password</Link>
         </div>
       </form>
-      <div className="sign-btn">
+      <SignBtn>
         <h4>Sign Up</h4>
         <button onClick={handleSubmit}>
           <FaArrowRight />
         </button>
-      </div>
+      </SignBtn>
+      <GetAuthGoogle />
       <div className="sign-option">
         <Link to="/sign-in">Sign In Instead</Link>
       </div>
