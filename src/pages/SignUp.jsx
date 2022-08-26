@@ -1,7 +1,19 @@
 import { useState } from "react";
 import "../assets/style/signIn.scss";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FaArrowRight, FaEye, FaEyeSlash } from "react-icons/fa";
+
+import { toast } from "react-toastify";
+
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  updateProfile,
+} from "firebase/auth";
+
+import { setDoc, doc, serverTimestamp } from "firebase/firestore";
+
+import { db } from "../firebase.config";
 
 function SignUp() {
   const [formData, setFormData] = useState({
@@ -9,10 +21,10 @@ function SignUp() {
     email: "",
     password: "",
   });
-
   const [viewPassword, setViewPassword] = useState(false);
-
   const { email, password, name } = formData;
+
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setFormData({
@@ -21,10 +33,38 @@ function SignUp() {
     });
   };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const auth = getAuth();
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      const user = userCredential.user;
+
+      updateProfile(auth.currentUser, {
+        displayName: name,
+      });
+
+      const formDataCopy = { ...formData };
+      delete formDataCopy.password;
+      formDataCopy.timestamp = serverTimestamp();
+
+      await setDoc(doc(db, "users", user.uid), formDataCopy);
+
+      navigate("/");
+    } catch (error) {
+      toast.error("Something is wrong with registration");
+    }
+  };
+
   return (
     <div className="container sign-form">
       <h1>Welcome back</h1>
-      <form>
+      <form onSubmit={handleSubmit}>
         <div className="input input-name">
           <input
             type="email"
@@ -66,7 +106,7 @@ function SignUp() {
       </form>
       <div className="sign-btn">
         <h4>Sign Up</h4>
-        <button>
+        <button onClick={handleSubmit}>
           <FaArrowRight />
         </button>
       </div>
