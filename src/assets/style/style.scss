@@ -45,7 +45,7 @@ a {
 }
 
 p {
-  font-size: clamp(1.8rem, 2.5vw, 3rem);
+  font-size: clamp(1.6rem, 2.5vw, 2.5rem);
 }
 
 .container {
@@ -56,14 +56,16 @@ p {
   position: relative;
 }
 
-.spinner{
+.spinner {
   display: flex;
   justify-content: center;
   align-items: center;
-
 }
 
-
+img {
+  display: block;
+  max-width: 100%;
+}
 .sign-btn {
   display: flex;
   justify-content: space-between;
