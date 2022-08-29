@@ -1,6 +1,7 @@
 import React from "react";
 
 import "../assets/style/explore.scss";
+import {Link} from 'react-router-dom'
 
 import rentHouse from "../assets/jpg/rentCategoryImage.jpg";
 import saleHouse from "../assets/jpg/sellCategoryImage.jpg";
@@ -23,14 +24,14 @@ function Explore() {
       <div className="categories">
         <p>Categories</p>
         <div className="img-flex">
-          <div className="img">
+          <Link to="/category/rent" className="img">
             <img src={rentHouse} alt="rentHouse" />
             <span>Places for rent</span>
-          </div>
-          <div className="img">
+          </Link>
+          <Link to="/category/sale" className="img">
             <img src={saleHouse} alt="saleHouse" />
             <span>Places for sale</span>
-          </div>
+          </Link>
         </div>
       </div>
     </div>
