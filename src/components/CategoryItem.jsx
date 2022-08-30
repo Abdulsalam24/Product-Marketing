@@ -6,7 +6,7 @@ import bathtubIcon from "../assets/svg/bathtubIcon.svg";
 
 import {FaShoppingBag } from 'react-icons/fa'
 
-function ListingItem({ listing, id, onEdit, onDelete }) {
+function CategoryItem({ listing, id, onEdit, onDelete }) {
   return (
     <li>
       <Link className="listing-img" to={`/category/${listing.type}/${id}`}>
@@ -66,4 +66,4 @@ function ListingItem({ listing, id, onEdit, onDelete }) {
   );
 }
 
-export default ListingItem;
+export default CategoryItem;

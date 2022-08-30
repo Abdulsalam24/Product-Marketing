@@ -36,4 +36,18 @@
       }
     }
   }
+
+  .create-listing {
+    background-color: #fff;
+    border-radius: 1rem;
+    padding: 1.5rem 1rem;
+    box-shadow: rgba(0, 0, 0, 0.2);
+    margin-top: 3rem;
+    font-weight: 600;
+    max-width: 500px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: black;
+  }
 }

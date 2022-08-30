@@ -1,20 +1,37 @@
-import { getAuth, updateProfile } from "firebase/auth";
-import { doc, updateDoc } from "firebase/firestore";
-import { db } from "../firebase.config";
+import { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
+import { getAuth, updateProfile } from 'firebase/auth'
+import {
+  updateDoc,
+  doc,
+  collection,
+  getDocs,
+  query,
+  where,
+  orderBy,
+  deleteDoc,
+} from 'firebase/firestore'
+import { db } from '../firebase.config'
+import { useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
 
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import arrowRight from '../assets/svg/keyboardArrowRightIcon.svg'
+import homeIcon from '../assets/svg/homeIcon.svg'
+
 import "../assets/style/profile.scss";
-import { toast } from "react-toastify";
+import CategoryItem from "../components/CategoryItem";
 
 function Profile() {
   const auth = getAuth();
+
+  const [loading, setLoading] = useState(true);
+  const [listings, setListings] = useState(null);
   const [formData, setFormData] = useState({
     name: auth.currentUser.displayName,
     email: auth.currentUser.email,
   });
-
   const [changeDetail, setChangeDetail] = useState(true);
+
   const { name, email } = formData;
 
   const navigate = useNavigate();
@@ -49,7 +66,23 @@ function Profile() {
     }
   };
 
+  const onDelete = async (listingId) => {
+    if (window.confirm('Are you sure you want to delete?')) {
+      await deleteDoc(doc(db, 'listings', listingId))
+      const updatedListings = listings.filter(
+        (listing) => listing.id !== listingId
+      )
+      setListings(updatedListings)
+      toast.success('Successfully deleted listing')
+    }
+  }
+
+  const onEdit = (listingId) => navigate(`/edit-listing/${listingId}`)
+
   const btnDisable = true;
+
+
+
 
   return (
     <div className="profile container">
@@ -96,6 +129,29 @@ function Profile() {
           />
         </div>
       </form>
+
+      <Link to="/create-listing" className="create-listing">
+        <img src={homeIcon} alt="home" />
+        <p>Sell or rent your home</p>
+        <img src={arrowRight} alt="arrow right" />
+      </Link>
+
+      {!loading && listings?.length > 0 && (
+        <>
+          <p className="listingText">Your Listings</p>
+          <ul className="listingsList">
+            {listings.map((listing) => (
+              <CategoryItem
+                key={listing.id}
+                listing={listing.data}
+                id={listing.id}
+                onDelete={() => onDelete(listing.id)}
+                onEdit={() => onEdit(listing.id)}
+              />
+            ))}
+          </ul>
+        </>
+      )}
     </div>
   );
 }
