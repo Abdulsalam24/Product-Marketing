@@ -1,54 +1,74 @@
-import React from "react";
+import { useNavigate, useLocation } from 'react-router-dom'
+import { ReactComponent as OfferIcon } from '../assets/svg/localOfferIcon.svg'
+import { ReactComponent as ExploreIcon } from '../assets/svg/exploreIcon.svg'
+import { ReactComponent as PersonOutlineIcon } from '../assets/svg/personOutlineIcon.svg'
 
-import "../assets/style/nav.scss";
-import { useNavigate, useLocation } from "react-router-dom";
+function Navbar() {
+  const navigate = useNavigate()
+  const location = useLocation()
 
-import { ReactComponent as ExploreIcon } from "../assets/svg/exploreIcon.svg";
-import { ReactComponent as OfferIcon } from "../assets/svg/localOfferIcon.svg";
-import { ReactComponent as Profile } from "../assets/svg/personOutlineIcon.svg";
-
-function NavBar() {
-  const navigate = useNavigate();
-  const location = useLocation();
-
-  const activeLinkCheck = (route) => {
+  const pathMatchRoute = (route) => {
     if (route === location.pathname) {
-      return true;
+      return true
     }
-  };
+  }
 
   return (
-    <footer>
-      <nav>
-        <ul>
-          <li onClick={() => navigate("/")}>
+    <footer className='navbar'>
+      <nav className='navbarNav'>
+        <ul className='navbarListItems'>
+          <li className='navbarListItem' onClick={() => navigate('/')}>
             <ExploreIcon
-              fill={activeLinkCheck("/") ? "#000" : "#535353"}
-              height="30px"
-              width="30px"
+              fill={pathMatchRoute('/') ? '#2c2c2c' : '#8f8f8f'}
+              width='36px'
+              height='36px'
             />
-            <p>Explore</p>
+            <p
+              className={
+                pathMatchRoute('/')
+                  ? 'navbarListItemNameActive'
+                  : 'navbarListItemName'
+              }
+            >
+              Explore
+            </p>
           </li>
-          <li onClick={() => navigate("/offers")}>
+          <li className='navbarListItem' onClick={() => navigate('/offers')}>
             <OfferIcon
-              fill={activeLinkCheck("/offers") ? "#000" : "#535353"}
-              height="30px"
-              width="30px"
+              fill={pathMatchRoute('/offers') ? '#2c2c2c' : '#8f8f8f'}
+              width='36px'
+              height='36px'
             />
-            <p>Offer</p>
+            <p
+              className={
+                pathMatchRoute('/offer')
+                  ? 'navbarListItemNameActive'
+                  : 'navbarListItemName'
+              }
+            >
+              Offers
+            </p>
           </li>
-          <li onClick={() => navigate("/profile")}>
-            <Profile
-              fill={activeLinkCheck("/profile") ? "#000" : "#535353"}
-              height="30px"
-              width="30px"
+          <li className='navbarListItem' onClick={() => navigate('/profile')}>
+            <PersonOutlineIcon
+              fill={pathMatchRoute('/profile') ? '#2c2c2c' : '#8f8f8f'}
+              width='36px'
+              height='36px'
             />
-            <p>Profile</p>
+            <p
+              className={
+                pathMatchRoute('/profile')
+                  ? 'navbarListItemNameActive'
+                  : 'navbarListItemName'
+              }
+            >
+              Profile
+            </p>
           </li>
         </ul>
       </nav>
     </footer>
-  );
+  )
 }
 
-export default NavBar;
+export default Navbar

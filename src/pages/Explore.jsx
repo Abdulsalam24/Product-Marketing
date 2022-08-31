@@ -1,41 +1,40 @@
-import React from "react";
-
-import "../assets/style/explore.scss";
-import {Link} from 'react-router-dom'
-
-import rentHouse from "../assets/jpg/rentCategoryImage.jpg";
-import saleHouse from "../assets/jpg/sellCategoryImage.jpg";
+import { Link } from 'react-router-dom'
+import Slider from '../components/Slider'
+import rentCategoryImage from '../assets/jpg/rentCategoryImage.jpg'
+import sellCategoryImage from '../assets/jpg/sellCategoryImage.jpg'
 
 function Explore() {
   return (
-    <div className="container explore">
-      <h1>Explore</h1>
-      <div className="recommended">
-        <p>Recommended</p>
-        <div className="img-flex">
-          <div className="img">
-            <img src={saleHouse} alt="saleHouse" />
-            <div className="img-text">
-              <h4>Evergreen house of heroes</h4>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className="categories">
-        <p>Categories</p>
-        <div className="img-flex">
-          <Link to="/category/rent" className="img">
-            <img src={rentHouse} alt="rentHouse" />
-            <span>Places for rent</span>
+    <div className='explore'>
+      <header>
+        <p className='pageHeader'>Explore</p>
+      </header>
+
+      <main>
+        <Slider />
+
+        <p className='exploreCategoryHeading'>Categories</p>
+        <div className='exploreCategories'>
+          <Link to='/category/rent'>
+            <img
+              src={rentCategoryImage}
+              alt='rent'
+              className='exploreCategoryImg'
+            />
+            <p className='exploreCategoryName'>Places for rent</p>
           </Link>
-          <Link to="/category/sale" className="img">
-            <img src={saleHouse} alt="saleHouse" />
-            <span>Places for sale</span>
+          <Link to='/category/sale'>
+            <img
+              src={sellCategoryImage}
+              alt='sell'
+              className='exploreCategoryImg'
+            />
+            <p className='exploreCategoryName'>Places for sale</p>
           </Link>
         </div>
-      </div>
+      </main>
     </div>
-  );
+  )
 }
 
-export default Explore;
+export default Explore

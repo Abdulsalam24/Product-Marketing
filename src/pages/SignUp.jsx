@@ -1,7 +1,5 @@
 import { useState } from "react";
-import "../assets/style/signIn.scss";
 import { Link, useNavigate } from "react-router-dom";
-import { FaArrowRight, FaEye, FaEyeSlash } from "react-icons/fa";
 import { toast } from "react-toastify";
 import {
   getAuth,
@@ -10,37 +8,40 @@ import {
 } from "firebase/auth";
 import { setDoc, doc, serverTimestamp } from "firebase/firestore";
 import { db } from "../firebase.config";
-import SignBtn from "../shared/SignBtn";
-import GetAuthGoogle from "../components/GetAuthGoogle";
+import OAuth from "../components/OAuth";
+import { ReactComponent as ArrowRightIcon } from "../assets/svg/keyboardArrowRightIcon.svg";
+import visibilityIcon from "../assets/svg/visibilityIcon.svg";
 
 function SignUp() {
+  const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     password: "",
   });
-  const [viewPassword, setViewPassword] = useState(false);
-  const { email, password, name } = formData;
+  const { name, email, password } = formData;
 
   const navigate = useNavigate();
 
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
+  const onChange = (e) => {
+    setFormData((prevState) => ({
+      ...prevState,
       [e.target.id]: e.target.value,
-    });
+    }));
   };
 
-  const handleSubmit = async (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
 
     try {
       const auth = getAuth();
+
       const userCredential = await createUserWithEmailAndPassword(
         auth,
         email,
         password
       );
+
       const user = userCredential.user;
 
       updateProfile(auth.currentUser, {
@@ -54,65 +55,74 @@ function SignUp() {
       await setDoc(doc(db, "users", user.uid), formDataCopy);
 
       navigate("/");
+      
     } catch (error) {
-      toast.error("Something is wrong with registration");
+      toast.error("Something went wrong with registration");
     }
   };
 
   return (
-    <div className="container sign-form">
-      <h1>Welcome back</h1>
-      <form onSubmit={handleSubmit}>
-        <div className="input input-name">
+    <>
+      <div className="pageContainer">
+        <header>
+          <p className="pageHeader">Welcome Back!</p>
+        </header>
+
+        <form onSubmit={onSubmit}>
           <input
-            type="email"
+            type="text"
+            className="nameInput"
+            placeholder="Name"
             id="name"
             value={name}
-            placeholder="Enter name"
-            onChange={handleChange}
+            onChange={onChange}
           />
-        </div>
-        <div className="input input-email">
           <input
             type="email"
+            className="emailInput"
+            placeholder="Email"
             id="email"
             value={email}
-            placeholder="Enter email"
-            onChange={handleChange}
+            onChange={onChange}
           />
-        </div>
-        <div className="input input-password">
-          <input
-            type={viewPassword ? "text" : "password"}
-            id="password"
-            value={password}
-            placeholder="Enter password"
-            onChange={handleChange}
-          />
-          <div className="view-icon">
-            {viewPassword ? (
-              <FaEyeSlash onClick={() => setViewPassword(!viewPassword)} />
-            ) : (
-              <FaEye onClick={() => setViewPassword(!viewPassword)} />
-            )}
-          </div>
-        </div>
 
-        <div className="forget-password">
-          <Link to="/forget-password">Forget password</Link>
-        </div>
-      </form>
-      <SignBtn>
-        <h4>Sign Up</h4>
-        <button onClick={handleSubmit}>
-          <FaArrowRight />
-        </button>
-      </SignBtn>
-      <GetAuthGoogle />
-      <div className="sign-option">
-        <Link to="/sign-in">Sign In Instead</Link>
+          <div className="passwordInputDiv">
+            <input
+              type={showPassword ? "text" : "password"}
+              className="passwordInput"
+              placeholder="Password"
+              id="password"
+              value={password}
+              onChange={onChange}
+            />
+
+            <img
+              src={visibilityIcon}
+              alt="show password"
+              className="showPassword"
+              onClick={() => setShowPassword((prevState) => !prevState)}
+            />
+          </div>
+
+          <Link to="/forgot-password" className="forgotPasswordLink">
+            Forgot Password
+          </Link>
+
+          <div className="signUpBar">
+            <p className="signUpText">Sign Up</p>
+            <button className="signUpButton">
+              <ArrowRightIcon fill="#ffffff" width="34px" height="34px" />
+            </button>
+          </div>
+        </form>
+
+        <OAuth />
+
+        <Link to="/sign-in" className="registerLink">
+          Sign In Instead
+        </Link>
       </div>
-    </div>
+    </>
   );
 }
 
