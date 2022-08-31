@@ -25,7 +25,7 @@ function Category() {
     const fetchListings = async () => {
       try {
         // Get reference
-        const listingsRef = collection(db, 'listing')
+        const listingsRef = collection(db, 'listings')
 
         // Create a query
         const q = query(
@@ -64,7 +64,7 @@ function Category() {
   const onFetchMoreListings = async () => {
     try {
       // Get reference
-      const listingsRef = collection(db, 'listing')
+      const listingsRef = collection(db, 'listings')
 
       // Create a query
       const q = query(
@@ -101,8 +101,8 @@ function Category() {
     <div className='category'>
       <header>
         <p className='pageHeader'>
-          {params.categoryName === 'rent'
-            ? 'Places for rent'
+          {params.categoryName === 'service'
+            ? 'Places for service'
             : 'Places for sale'}
         </p>
       </header>

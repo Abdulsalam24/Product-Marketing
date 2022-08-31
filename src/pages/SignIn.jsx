@@ -41,16 +41,16 @@ function SignIn() {
         navigate("/");
       }
     } catch (error) {
-      toast.error("Bad User Credentials");
+      toast.error("Wrong User Credentials");
     }
   };
 
   return (
-    <>
-      <div className="pageContainer">
-        <div className="center">
+    <div className="pageContainer">
+      <div className="center">
+        <div className="flex">
           <div className="left">
-            <h1>Sign up</h1>
+            <h1>Sign In</h1>
             <form onSubmit={onSubmit}>
               <input
                 type="email"
@@ -76,9 +76,9 @@ function SignIn() {
                 />
               </div>
 
-                <button className="sign-in" type="submit">
+              <button className="sign-in" type="submit">
                 Sign In
-                </button>
+              </button>
 
               <Link className="forgot-password" to="/forgot-password">
                 Forgot Password
@@ -97,7 +97,7 @@ function SignIn() {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }
 

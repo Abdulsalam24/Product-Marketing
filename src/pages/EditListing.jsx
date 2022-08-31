@@ -19,12 +19,10 @@ function EditListing() {
   const [loading, setLoading] = useState(false)
   const [listing, setListing] = useState(false)
   const [formData, setFormData] = useState({
-    type: 'rent',
+    type: 'service',
     name: '',
-    bedrooms: 1,
-    bathrooms: 1,
-    parking: false,
-    furnished: false,
+    quantity: 1,
+    availableg: false,
     address: '',
     offer: false,
     regularPrice: 0,
@@ -37,10 +35,8 @@ function EditListing() {
   const {
     type,
     name,
-    bedrooms,
-    bathrooms,
-    parking,
-    furnished,
+    quantity,
+    available,
     address,
     offer,
     regularPrice,
@@ -253,7 +249,7 @@ function EditListing() {
 
       <main>
         <form onSubmit={onSubmit}>
-          <label className='formLabel'>Sell / Rent</label>
+          <label className='formLabel'>Sell / Service</label>
           <div className='formButtons'>
             <button
               type='button'
@@ -266,12 +262,12 @@ function EditListing() {
             </button>
             <button
               type='button'
-              className={type === 'rent' ? 'formButtonActive' : 'formButton'}
+              className={type === 'service' ? 'formButtonActive' : 'formButton'}
               id='type'
-              value='rent'
+              value='service'
               onClick={onMutate}
             >
-              Rent
+              service
             </button>
           </div>
 
@@ -289,25 +285,12 @@ function EditListing() {
 
           <div className='formRooms flex'>
             <div>
-              <label className='formLabel'>Bedrooms</label>
+              <label className='formLabel'>Quantity</label>
               <input
                 className='formInputSmall'
                 type='number'
-                id='bedrooms'
-                value={bedrooms}
-                onChange={onMutate}
-                min='1'
-                max='50'
-                required
-              />
-            </div>
-            <div>
-              <label className='formLabel'>Bathrooms</label>
-              <input
-                className='formInputSmall'
-                type='number'
-                id='bathrooms'
-                value={bathrooms}
+                id='quantity'
+                value={quantity}
                 onChange={onMutate}
                 min='1'
                 max='50'
@@ -316,12 +299,12 @@ function EditListing() {
             </div>
           </div>
 
-          <label className='formLabel'>Parking spot</label>
+          <label className='formLabel'>availabl spot</label>
           <div className='formButtons'>
             <button
-              className={parking ? 'formButtonActive' : 'formButton'}
+              className={available ? 'formButtonActive' : 'formButton'}
               type='button'
-              id='parking'
+              id='available'
               value={true}
               onClick={onMutate}
               min='1'
@@ -331,36 +314,10 @@ function EditListing() {
             </button>
             <button
               className={
-                !parking && parking !== null ? 'formButtonActive' : 'formButton'
+                !available && available !== null ? 'formButtonActive' : 'formButton'
               }
               type='button'
-              id='parking'
-              value={false}
-              onClick={onMutate}
-            >
-              No
-            </button>
-          </div>
-
-          <label className='formLabel'>Furnished</label>
-          <div className='formButtons'>
-            <button
-              className={furnished ? 'formButtonActive' : 'formButton'}
-              type='button'
-              id='furnished'
-              value={true}
-              onClick={onMutate}
-            >
-              Yes
-            </button>
-            <button
-              className={
-                !furnished && furnished !== null
-                  ? 'formButtonActive'
-                  : 'formButton'
-              }
-              type='button'
-              id='furnished'
+              id='available'
               value={false}
               onClick={onMutate}
             >
@@ -441,7 +398,7 @@ function EditListing() {
               max='750000000'
               required
             />
-            {type === 'rent' && <p className='formPriceText'>$ / Month</p>}
+            {type === 'service' && <p className='formPriceText'>$ / Month</p>}
           </div>
 
           {offer && (

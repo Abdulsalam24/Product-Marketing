@@ -12,6 +12,8 @@ import OAuth from "../components/OAuth";
 import { ReactComponent as ArrowRightIcon } from "../assets/svg/keyboardArrowRightIcon.svg";
 import visibilityIcon from "../assets/svg/visibilityIcon.svg";
 
+import "../assets/style/signIn.scss";
+
 function SignUp() {
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
@@ -55,74 +57,72 @@ function SignUp() {
       await setDoc(doc(db, "users", user.uid), formDataCopy);
 
       navigate("/");
-      
     } catch (error) {
       toast.error("Something went wrong with registration");
     }
   };
 
   return (
-    <>
-      <div className="pageContainer">
-        <header>
-          <p className="pageHeader">Welcome Back!</p>
-        </header>
+    <div className="pageContainer">
+      <div className="center">
+        <div className="flex">
+          <div className="left">
+            <h1>Sign Up</h1>
 
-        <form onSubmit={onSubmit}>
-          <input
-            type="text"
-            className="nameInput"
-            placeholder="Name"
-            id="name"
-            value={name}
-            onChange={onChange}
-          />
-          <input
-            type="email"
-            className="emailInput"
-            placeholder="Email"
-            id="email"
-            value={email}
-            onChange={onChange}
-          />
+            <form onSubmit={onSubmit}>
+              <input
+                type="text"
+                placeholder="Name"
+                id="name"
+                value={name}
+                onChange={onChange}
+              />
+              <input
+                type="email"
+                placeholder="Email"
+                id="email"
+                value={email}
+                onChange={onChange}
+              />
 
-          <div className="passwordInputDiv">
-            <input
-              type={showPassword ? "text" : "password"}
-              className="passwordInput"
-              placeholder="Password"
-              id="password"
-              value={password}
-              onChange={onChange}
-            />
+              <div className="password">
+                <input
+                  type={showPassword ? "text" : "password"}
+                  placeholder="Password"
+                  id="password"
+                  value={password}
+                  onChange={onChange}
+                />
 
-            <img
-              src={visibilityIcon}
-              alt="show password"
-              className="showPassword"
-              onClick={() => setShowPassword((prevState) => !prevState)}
-            />
+                <img
+                  src={visibilityIcon}
+                  alt="show password"
+                  onClick={() => setShowPassword((prevState) => !prevState)}
+                />
+              </div>
+
+              <button className="sign-in" type="submit">
+                Sign Up
+              </button>
+
+              <Link className="forgot-password" to="/forgot-password">
+                Forgot Password
+              </Link>
+            </form>
           </div>
-
-          <Link to="/forgot-password" className="forgotPasswordLink">
-            Forgot Password
-          </Link>
-
-          <div className="signUpBar">
-            <p className="signUpText">Sign Up</p>
-            <button className="signUpButton">
-              <ArrowRightIcon fill="#ffffff" width="34px" height="34px" />
-            </button>
+          <div className="or">
+            <p>OR</p>
           </div>
-        </form>
+          <div className="right">
+            <OAuth />
 
-        <OAuth />
-
-        <Link to="/sign-in" className="registerLink">
-          Sign In Instead
-        </Link>
+            <Link to="/sign-in" className="sign-up-instead">
+              Sign In Instead
+            </Link>
+          </div>
+        </div>
       </div>
-    </>
+    </div>
   );
 }
 

@@ -1,43 +1,21 @@
 .explore {
-  .categories,
-  .recommended {
+padding-bottom: 9rem;
+  header{
     margin: 2rem 0;
-    .img-flex {
-      display: flex;
-      justify-content: space-between;
-      gap: 1rem;
-      margin: 2rem 0;
-      > .img {
-        flex: 1;
-        span {
-          color: black;
-          font-size: 1.4rem;
-        }
-        img {
-          border-radius: 10px;
-          margin: 0 0 1rem 0;
+    background-color: rgb(240, 240, 240);
+  }
+
+  main{
+    .slider {
+      .swiper-container {
+        height: 100vh;
+        .swiperSlideDiv{
         }
       }
     }
-  }
-  .recommended {
-    .img-flex {
-      .img {
-        position: relative;
-
-        img {
-          border-radius: 0;
-        }
-        .img-text {
-          position: absolute;
-          top: 50%;
-          left: 2%;
-          transform: translate(0%, -50%);
-          background-color: rgba(0, 0, 0, 0.548);
-          color: white;
-          padding: 0.5rem;
-        }
-      }
+    .category{
+      margin: 2rem 0;
+      
     }
   }
 }

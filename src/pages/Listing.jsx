@@ -86,7 +86,7 @@ function Listing() {
         </p>
         <p className="listingLocation">{listing.location}</p>
         <p className="listingType">
-          For {listing.type === "rent" ? "Rent" : "Sale"}
+          For {listing.type === "service" ? "service" : "Sale"}
         </p>
         {listing.offer && (
           <p className="discountPrice">
@@ -96,17 +96,11 @@ function Listing() {
 
         <ul className="listingDetailsList">
           <li>
-            {listing.bedrooms > 1
-              ? `${listing.bedrooms} Bedrooms`
-              : "1 Bedroom"}
+            {listing.quantity> 1
+              ? `${listing.quantity} quantity`
+              : "1 quantity"}
           </li>
-          <li>
-            {listing.bathrooms > 1
-              ? `${listing.bathrooms} Bathrooms`
-              : "1 Bathroom"}
-          </li>
-          <li>{listing.parking && "Parking Spot"}</li>
-          <li>{listing.furnished && "Furnished"}</li>
+          <li>{listing.available && "available Now"}</li>
         </ul>
         <Link
           to={`/contact/${listing.userRef}?listingName=${listing.name}`}
@@ -137,7 +131,7 @@ function Listing() {
           </MapContainer>
         </div> */}
         {/* 
-        {auth.currentUser?.uid !== listing.userRef && (
+        {auth.curserviceUser?.uid !== listing.userRef && (
          
         )} */}
       </div>
