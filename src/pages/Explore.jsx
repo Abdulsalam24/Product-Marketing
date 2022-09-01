@@ -19,15 +19,17 @@ function Explore() {
       >
         <div className="thunmnail"></div>
         <div className="header-text">
-          <h1>Product Landing Page</h1>
+          <h1>
+            Marketing’s job is never done. <br /> Get it done !
+          </h1>
           <p>
-            Launching a product? Looking for a kick-ass landing page to sell
-            your product? Proland is a highly sophisticated ready to use HTML5
-            WordPress product landing page template
+            Looking for a website to Lauch your product Looking for a that
+            kick-ass sale? Prosalety is a highly sophisticated ready to use to
+            serve you right and fetch you right.
           </p>
           <div className="btn">
             <Link to="/category/sale">
-              <button>View For Sale</button>
+              <button>View Product</button>
             </Link>
           </div>
         </div>
