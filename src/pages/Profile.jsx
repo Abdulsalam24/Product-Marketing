@@ -103,20 +103,14 @@ function Profile() {
       );
       setListings(updatedListings);
       toast.success("Successfully deleted listing");
-      navigate("/")
+      navigate("/");
     }
   };
 
   const onEdit = (listingId) => navigate(`/edit-listing/${listingId}`);
 
   return (
-    <div
-      className="profile-page"
-      // style={{
-      //   background: `url(${bg}) no-repeat center`,
-      //   backgroundSize: "cover",
-      // }}
-    >
+    <div className="profile-page">
       <div className="profile">
         <div className="profileHeader">
           <div className="flex">
