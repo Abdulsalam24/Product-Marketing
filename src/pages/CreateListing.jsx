@@ -13,7 +13,6 @@ import { toast } from 'react-toastify'
 import { v4 as uuidv4 } from 'uuid'
 import Spinner from '../components/Spinner'
 
-import '../assets/style/createlisting.scss'
 
 function CreateListing() {
   // eslint-disable-next-line
@@ -146,7 +145,7 @@ function CreateListing() {
     const docRef = await addDoc(collection(db, 'listing'), formDataCopy)
     setLoading(false)
     toast.success('Listing saved')
-    navigate(`/explore`)
+    navigate(`/`)
   }
 
   

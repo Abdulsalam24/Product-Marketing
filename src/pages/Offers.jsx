@@ -118,11 +118,6 @@ function Offers() {
 
           <br />
           <br />
-          {lastFetchedListing && (
-            <p className='loadMore' onClick={onFetchMoreListings}>
-              Load More
-            </p>
-          )}
         </>
       ) : (
         <p>There are no current offers</p>

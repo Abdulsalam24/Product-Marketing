@@ -51,6 +51,10 @@ button {
   border: none;
 }
 
+.pageHeader{
+  margin: 2rem 0;
+}
+
 button {
   cursor: pointer;
 }
@@ -160,16 +164,14 @@ img {
 .offers,
 .profile,
 .listingDetails,
-.category,
-.explore {
+.category {
   margin: 1rem;
 }
 @media (min-width: 1024px) {
   .offers,
   .profile,
   .listingDetails,
-  .category,
-  .explore {
+  .category{
     margin: 3rem;
   }
 }
@@ -210,11 +212,11 @@ img {
   bottom: 0;
   right: 0;
   height: 85px;
-  background-color: #ffffff;
   z-index: 1000;
   display: flex;
   justify-content: center;
   align-items: center;
+  box-shadow: rgba(0, 0, 0, 0.763) 0px 7px 29px 0px;
 }
 
 .navbarNav {
@@ -243,10 +245,12 @@ img {
   margin-top: 0.25rem;
   font-size: 14px;
   font-weight: 600;
-  color: #8f8f8f;
+  // color: #8f8f8f;
+  color: #000000;
+
 }
 .navbarListItemNameActive {
-  color: #2c2c2c;
+  color: #000000;
 }
 
 .nameInput {
@@ -310,25 +314,7 @@ img {
   width: 100%;
 }
 
-@media (min-width: 1217px) {
-  .explore {
-    margin-bottom: 10rem;
-  }
-}
-@media (max-height: 536) {
-  .explore {
-    margin-bottom: 10rem;
-  }
-}
 
-.exploreHeading,
-.exploreCategoryHeading {
-  font-weight: 700;
-}
-
-.exploreCategoryHeading {
-  margin-top: 3rem;
-}
 
 .swiper-container {
   min-height: 225px;
@@ -384,27 +370,10 @@ img {
   }
 }
 
-.exploreCategories {
-  display: flex;
-  justify-content: space-between;
-}
-.exploreCategories a {
-  width: 48%;
-}
 
-.exploreCategoryImg {
-  min-height: 115px;
-  height: 15vw;
-  width: 100%;
-  border-radius: 1.5rem;
-  object-fit: cover;
-  margin: 0 auto;
-}
 
-.exploreCategoryName {
-  font-weight: 500;
-  text-align: left;
-}
+
+
 
 .category {
   margin-bottom: 10rem;

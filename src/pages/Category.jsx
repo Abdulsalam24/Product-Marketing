@@ -24,10 +24,8 @@ function Category() {
   useEffect(() => {
     const fetchListings = async () => {
       try {
-        // Get reference
-        const listingsRef = collection(db, 'listings')
+        const listingsRef = collection(db, 'listing')
 
-        // Create a query
         const q = query(
           listingsRef,
           where('type', '==', params.categoryName),
@@ -35,7 +33,6 @@ function Category() {
           limit(10)
         )
 
-        // Execute query
         const querySnap = await getDocs(q)
 
         const lastVisible = querySnap.docs[querySnap.docs.length - 1]
@@ -60,13 +57,10 @@ function Category() {
     fetchListings()
   }, [params.categoryName])
 
-  // Pagination / Load More
   const onFetchMoreListings = async () => {
     try {
-      // Get reference
-      const listingsRef = collection(db, 'listings')
+      const listingsRef = collection(db, 'listing')
 
-      // Create a query
       const q = query(
         listingsRef,
         where('type', '==', params.categoryName),
@@ -75,7 +69,6 @@ function Category() {
         limit(10)
       )
 
-      // Execute query
       const querySnap = await getDocs(q)
 
       const lastVisible = querySnap.docs[querySnap.docs.length - 1]
@@ -93,6 +86,7 @@ function Category() {
       setListings((prevState) => [...prevState, ...listings])
       setLoading(false)
     } catch (error) {
+      console.log(error , 'errrrrrrrrrrrrro')
       toast.error('Could not fetch listings')
     }
   }
@@ -102,8 +96,8 @@ function Category() {
       <header>
         <p className='pageHeader'>
           {params.categoryName === 'service'
-            ? 'Places for service'
-            : 'Places for sale'}
+            ? 'Service Available'
+            : 'Product for sale'}
         </p>
       </header>
 
