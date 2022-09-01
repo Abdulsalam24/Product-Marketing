@@ -4,6 +4,8 @@ import { doc, getDoc } from 'firebase/firestore'
 import { db } from '../firebase.config'
 import { toast } from 'react-toastify'
 
+import '../assets/style/contact.scss'
+
 function Contact() {
   const [message, setMessage] = useState('')
   const [landlord, setLandlord] = useState(null)
@@ -30,7 +32,7 @@ function Contact() {
   const onChange = (e) => setMessage(e.target.value)
 
   return (
-    <div className='pageContainer'>
+    <div className='contact'>
       <header>
         <p className='pageHeader'>Contact Landlord</p>
       </header>

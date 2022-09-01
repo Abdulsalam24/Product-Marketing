@@ -1,0 +1,43 @@
+.category-Listing {
+  max-width: 350px;
+  .category-listing-link {
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    width: 80%;
+    box-shadow: rgba(0, 0, 0, 0.2);
+
+    .category-name {
+      line-break: normal;
+      word-wrap: break-word;
+      padding: 1rem 0.5rem;
+      background-color: #535b64;
+      color: white;
+    }
+    img {
+      height: 250px;
+      width: 100%;
+    }
+    .category-details {
+      padding: 0.7rem 1.6rem 1rem;
+      .category-price {
+        text-align: center;
+        margin: 1rem 0;
+      }
+      .category-location {
+        margin: 0.5rem 0;
+      }
+    }
+    .flex {
+      padding: 1rem 2rem;
+      justify-content: space-between;
+      .removeIcon {
+        display: inline;
+      }
+      .editIcon {
+        display: inline;
+      }
+    }
+  }
+}

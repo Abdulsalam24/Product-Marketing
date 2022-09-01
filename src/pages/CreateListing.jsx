@@ -13,6 +13,8 @@ import { toast } from 'react-toastify'
 import { v4 as uuidv4 } from 'uuid'
 import Spinner from '../components/Spinner'
 
+import "../assets/style/createlisting.scss"
+
 
 function CreateListing() {
   // eslint-disable-next-line
@@ -180,11 +182,10 @@ function CreateListing() {
   }
 
   return (
-    <div className='profile'>
+    <div className='container createlisting'>
       <header>
-        <h1 className='pageHeader'>Create a Listing</h1>
+        <h4 className='pageHeader'>Create a Listing</h4>
       </header>
-
       <main>
         <form onSubmit={onSubmit}>
           <label className='formLabel'>Sell / Service</label>

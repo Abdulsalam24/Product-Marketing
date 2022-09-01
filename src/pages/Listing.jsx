@@ -1,42 +1,42 @@
-import { useState, useEffect } from 'react'
-import { Link, useNavigate, useParams } from 'react-router-dom'
-import { Helmet } from 'react-helmet'
-import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet'
-import SwiperCore, { Navigation, Pagination, Scrollbar, A11y } from 'swiper'
-import { Swiper, SwiperSlide } from 'swiper/react'
-import 'swiper/swiper-bundle.css'
-import { getDoc, doc } from 'firebase/firestore'
-import { getAuth } from 'firebase/auth'
-import { db } from '../firebase.config'
-import Spinner from '../components/Spinner'
-import shareIcon from '../assets/svg/shareIcon.svg'
-SwiperCore.use([Navigation, Pagination, Scrollbar, A11y])
+import { useState, useEffect } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { Helmet } from "react-helmet";
+import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
+import SwiperCore, { Navigation, Pagination, Scrollbar, A11y } from "swiper";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/swiper-bundle.css";
+import { getDoc, doc } from "firebase/firestore";
+import { getAuth } from "firebase/auth";
+import { db } from "../firebase.config";
+import Spinner from "../components/Spinner";
+import shareIcon from "../assets/svg/shareIcon.svg";
+SwiperCore.use([Navigation, Pagination, Scrollbar, A11y]);
 
 function Listing() {
-  const [listing, setListing] = useState(null)
-  const [loading, setLoading] = useState(true)
-  const [shareLinkCopied, setShareLinkCopied] = useState(false)
+  const [listing, setListing] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [shareLinkCopied, setShareLinkCopied] = useState(false);
 
-  const navigate = useNavigate()
-  const params = useParams()
-  const auth = getAuth()
+  const navigate = useNavigate();
+  const params = useParams();
+  const auth = getAuth();
 
   useEffect(() => {
     const fetchListing = async () => {
-      const docRef = doc(db, 'listing', params.listingId)
-      const docSnap = await getDoc(docRef)
+      const docRef = doc(db, "listing", params.listingId);
+      const docSnap = await getDoc(docRef);
 
       if (docSnap.exists()) {
-        setListing(docSnap.data())
-        setLoading(false)
+        setListing(docSnap.data());
+        setLoading(false);
       }
-    }
+    };
 
-    fetchListing()
-  }, [navigate, params.listingId])
+    fetchListing();
+  }, [navigate, params.listingId]);
 
   if (loading) {
-    return <Spinner />
+    return <Spinner />;
   }
 
   return (
@@ -50,67 +50,65 @@ function Listing() {
             <div
               style={{
                 background: `url(${listing.imgUrls[index]}) center no-repeat`,
-                backgroundSize: 'cover',
+                backgroundSize: "cover",
               }}
-              className='swiperSlideDiv'
+              className="swiperSlideDiv"
             ></div>
           </SwiperSlide>
         ))}
       </Swiper>
 
       <div
-        className='shareIconDiv'
+        className="shareIconDiv"
         onClick={() => {
-          navigator.clipboard.writeText(window.location.href)
-          setShareLinkCopied(true)
+          navigator.clipboard.writeText(window.location.href);
+          setShareLinkCopied(true);
           setTimeout(() => {
-            setShareLinkCopied(false)
-          }, 2000)
+            setShareLinkCopied(false);
+          }, 2000);
         }}
       >
-        <img src={shareIcon} alt='' />
+        <img src={shareIcon} alt="" />
       </div>
 
-      {shareLinkCopied && <p className='linkCopied'>Link Copied!</p>}
+      {shareLinkCopied && <p className="linkCopied">Link Copied!</p>}
 
-      <div className='listingDetails'>
-        <p className='listingName'>
+      <div className="listingDetails">
+        <p className="listingName">
           {listing.name} - $
           {listing.offer
             ? listing.discountedPrice
                 .toString()
-                .replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+                .replace(/\B(?=(\d{3})+(?!\d))/g, ",")
             : listing.regularPrice
                 .toString()
-                .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
         </p>
-        <p className='listingLocation'>{listing.location}</p>
-        <p className='listingType'>
-          For {listing.type === 'service' ? 'service' : 'Sale'}
+        <p className="listingLocation">{listing.location}</p>
+        <p className="listingType">
+          For {listing.type === "service" ? "service" : "Sale"}
         </p>
         {listing.offer && (
-          <p className='discountPrice'>
+          <p className="discountPrice">
             ${listing.regularPrice - listing.discountedPrice} discount
           </p>
         )}
 
-        <ul className='listingDetailsList'>
-          <li>
-            Quantity {listing.quantity}
-          </li>
+        <ul className="listingDetailsList">
+          <li>Quantity {listing.quantity}</li>
         </ul>
 
-          <Link
-            to={`/contact/${listing.userRef}?listingName=${listing.name}`}
-            className='primaryButton'
-          >
-            Contact Landlord
-          </Link>
+        <Link
+          to={`/contact/${listing.userRef}?listingName=${listing.name}`}
+          className="primaryButton"
+        >
+          Contact Landlord
+        </Link>
       </div>
     </main>
-  )
+  );
 }
 
-export default Listing
+export default Listing;
 
 // https://stackoverflow.com/questions/67552020/how-to-fix-error-failed-to-compile-node-modules-react-leaflet-core-esm-pat

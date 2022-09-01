@@ -94,11 +94,11 @@ function Category() {
   return (
     <div className='category'>
       <header>
-        <p className='pageHeader'>
+        <h4 className='pageHeader'>
           {params.categoryName === 'service'
             ? 'Service Available'
             : 'Product for sale'}
-        </p>
+        </h4>
       </header>
 
       {loading ? (
@@ -119,11 +119,11 @@ function Category() {
 
           <br />
           <br />
-          {lastFetchedListing && (
+          {/* {lastFetchedListing && (
             <p className='loadMore' onClick={onFetchMoreListings}>
               Load More
             </p>
-          )}
+          )} */}
         </>
       ) : (
         <p>No listings for {params.categoryName}</p>

@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
-import { getAuth, updateProfile } from 'firebase/auth'
+import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { getAuth, updateProfile } from "firebase/auth";
 import {
   updateDoc,
   doc,
@@ -10,60 +10,63 @@ import {
   where,
   orderBy,
   deleteDoc,
-} from 'firebase/firestore'
-import { db } from '../firebase.config'
-import { useNavigate } from 'react-router-dom'
-import { toast } from 'react-toastify'
-import ListingItem from '../components/ListingItem'
-import arrowRight from '../assets/svg/keyboardArrowRightIcon.svg'
-import homeIcon from '../assets/svg/homeIcon.svg'
+} from "firebase/firestore";
+import { db } from "../firebase.config";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import ListingItem from "../components/ListingItem";
+import arrowRight from "../assets/svg/keyboardArrowRightIcon.svg";
+import homeIcon from "../assets/svg/homeIcon.svg";
+import bg from "../assets/img/bg-profile.jpg";
+
+import "../assets/style/profile.scss";
 
 function Profile() {
-  const auth = getAuth()
-  const [loading, setLoading] = useState(true)
-  const [listings, setListings] = useState(null)
-  const [changeDetails, setChangeDetails] = useState(false)
+  const auth = getAuth();
+  const [loading, setLoading] = useState(true);
+  const [listings, setListings] = useState(null);
+  const [changeDetails, setChangeDetails] = useState(false);
   const [formData, setFormData] = useState({
     name: auth.currentUser.displayName,
     email: auth.currentUser.email,
-  })
+  });
 
-  const { name, email } = formData
+  const { name, email } = formData;
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchUserListings = async () => {
-      const listingsRef = collection(db, 'listing')
+      const listingsRef = collection(db, "listing");
 
       const q = query(
         listingsRef,
-        where('userRef', '==', auth.currentUser.uid),
-        orderBy('timestamp', 'desc')
-      )
+        where("userRef", "==", auth.currentUser.uid),
+        orderBy("timestamp", "desc")
+      );
 
-      const querySnap = await getDocs(q)
+      const querySnap = await getDocs(q);
 
-      let listings = []
+      let listings = [];
 
       querySnap.forEach((doc) => {
         return listings.push({
           id: doc.id,
           data: doc.data(),
-        })
-      })
+        });
+      });
 
-      setListings(listings)
-      setLoading(false)
-    }
+      setListings(listings);
+      setLoading(false);
+    };
 
-    fetchUserListings()
-  }, [auth.currentUser.uid])
+    fetchUserListings();
+  }, [auth.currentUser.uid]);
 
   const onLogout = () => {
-    auth.signOut()
-    navigate('/')
-  }
+    auth.signOut();
+    navigate("/");
+  };
 
   const onSubmit = async () => {
     try {
@@ -71,109 +74,121 @@ function Profile() {
         // Update display name in fb
         await updateProfile(auth.currentUser, {
           displayName: name,
-        })
+        });
 
         // Update in firestore
-        const userRef = doc(db, 'users', auth.currentUser.uid)
+        const userRef = doc(db, "users", auth.currentUser.uid);
         await updateDoc(userRef, {
           name,
-        })
+        });
       }
     } catch (error) {
-      console.log(error)
-      toast.error('Could not update profile details')
+      console.log(error);
+      toast.error("Could not update profile details");
     }
-  }
+  };
 
   const onChange = (e) => {
     setFormData((prevState) => ({
       ...prevState,
       [e.target.id]: e.target.value,
-    }))
-  }
+    }));
+  };
 
   const onDelete = async (listingId) => {
-    if (window.confirm('Are you sure you want to delete?')) {
-      await deleteDoc(doc(db, 'listing', listingId))
+    if (window.confirm("Are you sure you want to delete?")) {
+      await deleteDoc(doc(db, "listing", listingId));
       const updatedListings = listings.filter(
         (listing) => listing.id !== listingId
-      )
-      setListings(updatedListings)
-      toast.success('Successfully deleted listing')
+      );
+      setListings(updatedListings);
+      toast.success("Successfully deleted listing");
+      navigate("/")
     }
-  }
+  };
 
-  const onEdit = (listingId) => navigate(`/edit-listing/${listingId}`)
+  const onEdit = (listingId) => navigate(`/edit-listing/${listingId}`);
 
   return (
-    <div className='profile'>
-      <header className='profileHeader'>
-        <p className='pageHeader'>My Profile</p>
-        <button type='button' className='logOut' onClick={onLogout}>
-          Logout
-        </button>
-      </header>
+    <div
+      className="profile-page"
+      // style={{
+      //   background: `url(${bg}) no-repeat center`,
+      //   backgroundSize: "cover",
+      // }}
+    >
+      <div className="profile">
+        <div className="profileHeader">
+          <div className="flex">
+            <h4 className="pageHeader">My Profile</h4>
+            <button type="button" className="logOut" onClick={onLogout}>
+              Logout
+            </button>
+          </div>
+          <div className="profileDetailsHeader">
+            <p className="profileDetailsText">Personal Details</p>
+            <p
+              className="changePersonalDetails"
+              onClick={() => {
+                changeDetails && onSubmit();
+                setChangeDetails((prevState) => !prevState);
+              }}
+            >
+              {changeDetails ? "done" : "change"}
+            </p>
+          </div>
 
-      <main>
-        <div className='profileDetailsHeader'>
-          <p className='profileDetailsText'>Personal Details</p>
-          <p
-            className='changePersonalDetails'
-            onClick={() => {
-              changeDetails && onSubmit()
-              setChangeDetails((prevState) => !prevState)
-            }}
-          >
-            {changeDetails ? 'done' : 'change'}
-          </p>
+          <div className="profileCard">
+            <form>
+              <input
+                type="text"
+                id="name"
+                className={!changeDetails ? "profileName" : "profileNameActive"}
+                disabled={!changeDetails}
+                value={name}
+                onChange={onChange}
+              />
+              <input
+                type="text"
+                id="email"
+                className={
+                  !changeDetails ? "profileEmail" : "profileEmailActive"
+                }
+                disabled={!changeDetails}
+                value={email}
+                onChange={onChange}
+              />
+            </form>
+          </div>
+
+          <Link to="/create-listing" className="createListing">
+            <img src={homeIcon} alt="home" />
+            <p>Sell or service your home</p>
+            <img src={arrowRight} alt="arrow right" />
+          </Link>
         </div>
 
-        <div className='profileCard'>
-          <form>
-            <input
-              type='text'
-              id='name'
-              className={!changeDetails ? 'profileName' : 'profileNameActive'}
-              disabled={!changeDetails}
-              value={name}
-              onChange={onChange}
-            />
-            <input
-              type='text'
-              id='email'
-              className={!changeDetails ? 'profileEmail' : 'profileEmailActive'}
-              disabled={!changeDetails}
-              value={email}
-              onChange={onChange}
-            />
-          </form>
-        </div>
-
-        <Link to='/create-listing' className='createListing'>
-          <img src={homeIcon} alt='home' />
-          <p>Sell or service your home</p>
-          <img src={arrowRight} alt='arrow right' />
-        </Link>
-
-        {!loading && listings?.length > 0 && (
-          <>
-            <p className='listingText'>Your Listings</p>
-            <ul className='listingsList'>
-              {listings.map((listing) => (
-                <ListingItem
-                  key={listing.id}
-                  listing={listing.data}
-                  id={listing.id}
-                  onDelete={() => onDelete(listing.id)}
-                  onEdit={() => onEdit(listing.id)}
-                />
-              ))}
-            </ul>
-          </>
-        )}
-      </main>
+        <main>
+          {!loading && listings?.length > 0 && (
+            <>
+              <p className="listingText">Your Listings</p>
+              <ul className="listings-list">
+                {listings.map((listing) => (
+                  <ListingItem
+                    key={listing.id}
+                    listing={listing.data}
+                    id={listing.id}
+                    onDelete={() => onDelete(listing.id)}
+                    onEdit={() => onEdit(listing.id)}
+                  />
+                ))}
+              </ul>
+            </>
+          )}
+        </main>
+      </div>
     </div>
-  )
+  );
 }
 
-export default Profile
+export default Profile;

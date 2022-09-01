@@ -1,53 +1,31 @@
-.profile {
-  .profile-status {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    button {
+.profile-page {
+  .profile {
+    width: 90%;
+    margin: 0 auto;
+    padding: 2rem 0 7rem 0;
+    .profileHeader {
+      width: 400px;
+      box-shadow: 2px 2px 2px rgb(120, 120, 120);
       padding: 1rem;
-      background-color: rgb(41, 197, 10);
-      border-radius: 999px;
-      color: white;
-    }
-  }
-  .change {
-    display: flex;
-    justify-content: space-between;
-    margin: 2rem 0 2rem;
-    .change-btn {
-      color: rgb(41, 197, 10);
-      font-size: 1.5rem;
-      font-weight: 600;
-    }
-  }
-  form {
-    .input {
-      background-color: white;
-      padding: 1rem;
-      input {
-        background-color: rgb(224, 224, 224);
-
-        width: 100%;
-        padding: 0.5rem 1rem;
-        margin: 0.4rem 0;
+      .flex {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
       }
-      input:disabled {
-        background-color: white;
+      .profileDetailsHeader {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin: 1rem 0;
       }
     }
-  }
-
-  .create-listing {
-    background-color: #fff;
-    border-radius: 1rem;
-    padding: 1.5rem 1rem;
-    box-shadow: rgba(0, 0, 0, 0.2);
-    margin-top: 3rem;
-    font-weight: 600;
-    max-width: 500px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    color: black;
+    main {
+      padding: 2rem 0;
+      .profileDetailsHeader {
+        margin: 1rem 0;
+        .profileDetailsText {
+        }
+      }
+    }
   }
 }
