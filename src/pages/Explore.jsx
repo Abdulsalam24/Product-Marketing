@@ -20,12 +20,10 @@ function Explore() {
         <div className="thunmnail"></div>
         <div className="header-text">
           <h1>
-            Marketing’s job is never done. <br /> Get it done !
+            Marketing’s job is never done <br /> Get it done !
           </h1>
           <p>
-            Looking for a website to Lauch your product Looking for a that
-            kick-ass sale? Prosalety is a highly sophisticated ready to use to
-            serve you right and fetch you right.
+            Looking for a reliable website to launch your product to make that sale for you ? Prosalety is here to save you the stress and make selling easy.
           </p>
           <div className="btn">
             <Link to="/category/sale">
